@@ -1,0 +1,28 @@
+{
+  "name": "Geekbrains JS",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp",
+    "build": "gulp build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.14",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-cheerio": "^1.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-replace": "^1.1.1",
+    "gulp-sass": "^4.1.0",
+    "gulp-stylus": "^2.7.0",
+    "gulp-svg-sprite": "^1.5.0",
+    "gulp-svgmin": "^3.0.0",
+    "gulp.spritesmith": "^6.11.0",
+    "node-sass": "^5.0.0"
+  }
+}
