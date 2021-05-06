@@ -7,8 +7,10 @@ var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
     svgmin = require('gulp-svgmin'),
     cheerio = require('gulp-cheerio'),
-    spritesmith = require('gulp.spritesmith')
-replace = require('gulp-replace');
+    spritesmith = require('gulp.spritesmith'),
+    concat = require('gulp-concat'),
+    uglify = require('gulp-uglifyjs'),
+    replace = require('gulp-replace');
 
 gulp.task('sass', function () {
     return gulp.src('src/css/**/*.scss')
@@ -23,7 +25,9 @@ gulp.task('html', function () {
         .pipe(gulp.dest('dist'))
 });
 gulp.task('js', function () {
-    return gulp.src('src/js/**/*.js')
+    return gulp.src(['src/js/main.js', 'src/js/**/*.js'])
+        .pipe(concat('main.js'))
+        // .pipe(uglify())
         .pipe(gulp.dest('dist/src/js'))
         .pipe(browserSync.reload({stream: true}))
 });
