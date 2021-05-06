@@ -11,20 +11,20 @@ var gulp = require('gulp'),
 replace = require('gulp-replace');
 
 gulp.task('sass', function () {
-    return gulp.src('src/css/**/style.scss')
+    return gulp.src('src/css/**/*.scss')
         .pipe(sass())
         .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {cascade: true}))
-        .pipe(gulp.dest('dist/css'))
+        .pipe(gulp.dest('dist/src/css'))
         .pipe(browserSync.reload({stream: true}))
 });
 gulp.task('html', function () {
     return gulp.src('index.html')
         .pipe(browserSync.reload({stream: true}))
-    // .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest('dist'))
 });
 gulp.task('js', function () {
     return gulp.src('src/js/**/*.js')
-        // .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest('dist/src/js'))
         .pipe(browserSync.reload({stream: true}))
 });
 gulp.task('sprite', async function () {
@@ -86,7 +86,7 @@ gulp.task('watch', function () {
 gulp.task('browser-sync', function () {
     browserSync({
         server: {
-            baseDir: './'
+            baseDir: './dist'
         },
         notify: false,
         startPath: "index.html",
@@ -99,11 +99,11 @@ gulp.task('clean', async function () {
 });
 
 gulp.task('prebuild', async function () {
-    var buildCss = gulp.src(['dist/style.css'])
+    var buildCss = gulp.src(['dist/style.scss'])
         .pipe(gulp.dest('dist'))
 });
 
 
-gulp.task('default', gulp.parallel('sprite', 'sass', 'html', 'browser-sync', 'watch'));
+gulp.task('default', gulp.parallel('sprite', 'sass', 'html', 'browser-sync', 'watch', 'js'));
 
 gulp.task('build', gulp.parallel('prebuild', 'clean', 'sass'));
