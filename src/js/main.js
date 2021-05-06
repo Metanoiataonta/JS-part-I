@@ -1,15 +1,16 @@
 var formArea = document.querySelectorAll('.form'),
     resultArea = document.querySelectorAll('.result'),
     comparisonClearArray = ["first-variable", "second-variable"],
-    outputAClearArray = ["a-place"];
+    outputAClearArray = ["a-place"],
+mathsClearArray = ["maths-1", "maths-2", "operator"];
 
 // used in clearInput function
 
 
-function clearInput(clearArray) {
+function clearInput(clearArray, index) {
     for (var clear of clearArray) {
         document.getElementById(clear).value = '';
 
     }
-    resultArea[0].innerHTML = 'Result';
+    resultArea[index].innerHTML = 'Result';
 }

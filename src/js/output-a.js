@@ -1,5 +1,5 @@
 // form for fourth question
-formArea[1].innerHTML = '<div><label for="a-place">Type a</label></div> <div><input type="text" name="a-place" id="a-place"></div> <div><button onclick="output()">Comfirm</button> <button onclick="clearInput(outputAClearArray)">Clear</button></div>  ';
+formArea[1].innerHTML = '<div><label for="a-place">Type a</label></div> <div><input type="text" name="a-place" id="a-place"></div> <div><button onclick="outputA()">Comfirm</button> <button onclick="clearInput(outputAClearArray,1)">Clear</button></div>  ';
 
 
 // functions for fourth question
@@ -18,17 +18,18 @@ function isARight(a) {
     }
 }
 
-function output() {
+function outputA() {
     var a = readA(),
         resultOutput = '';
     if (isARight(a)) {
-        switch (+a) {
-            case 0:
-                resultOutput = '<p>0</p>';
-            case 1:
-                resultOutput += '<p>1</p>';
+        resultArea[1].innerHTML = 'Result is: ';
+        for (a; a < 16; a++) {
+            switch (a) {
+                case a:
+                    resultArea[1].append(a + ' ');
+
+            }
         }
-        resultArea[1].innerHTML = 'Result is: ' +
-            resultOutput;
+
     }
 }
