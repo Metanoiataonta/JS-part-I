@@ -1,4 +1,4 @@
-formArea[2].innerHTML = '<div><label for="maths-1">Type two variables and operations</label></div><div><input type="text" id="maths-1"><input type="text" id="maths-2"></div><div><input type="text" id="operator" placeholder="+ - * /"></div> <div><button onclick="mathCalc()">Comfirm</button> <button onclick="clearInput(mathsClearArray,2)">Clear</button></div>'
+formArea[2].innerHTML = '<label for="maths-1">Type two variables and operations</label><input type="text" id="maths-1"><input type="text" id="maths-2"><input type="text" id="operator" placeholder="+ - * /"> <button onclick="mathCalc()">Comfirm</button> <button onclick="clearInput(mathsClearArray,2)">Clear</button>'
 
 function mathsRead() {
     var a = document.getElementById('maths-1').value,

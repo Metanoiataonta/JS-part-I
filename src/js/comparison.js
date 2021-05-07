@@ -1,8 +1,8 @@
 // form for third question
-formArea[0].innerHTML = ' <div><label for="first-variable">Type first variable </label>\n' +
-    ' <div><input type="text" name="first-variable" id="first-variable"> </div></div>' +
-    '<div><label for="second-variable">Type second variable </label>\n' +
-    '<div><input type="text" name="second-variable" id="second-variable"> </div><div><button onclick="output()"> Comfirm</button><button onclick="clearInput(comparisonClearArray)">Clear</button></div></div>';
+formArea[0].innerHTML = ' <label for="first-variable">Type first variable </label>\n' +
+    ' <input type="text" name="first-variable" id="first-variable"> ' +
+    '<label for="second-variable">Type second variable </label>\n' +
+    '<input type="text" name="second-variable" id="second-variable"> <button onclick="output()"> Comfirm</button><button onclick="clearInput(comparisonClearArray)">Clear</button>';
 // scripts for third question
 for (var result of resultArea) {
     result.innerHTML = 'Result';
@@ -11,7 +11,7 @@ for (var result of resultArea) {
 function readVariables() {
     var a = document.getElementById('first-variable').value,
         b = document.getElementById('second-variable').value,
-        variablesArray = [a, b]
+        variablesArray = [a, b];
     return variablesArray;
 }
 
@@ -27,15 +27,16 @@ function validationVariables(validationArray) {
 }
 
 function checkVariables(checkingArray) {
-    var checked = true;
 
+    var checked;
     for (var checkingVar of checkingArray) {
-        if (!Number.isInteger(checkingVar)) {
-            checked = false;
+        if (Number.isInteger(+checkingVar)) {
+            checked = true;
+        } else {
+            resultArea[0].innerHTML = 'Something wrong';
+            return false;
         }
-    }
-    if (!checked) {
-        resultArea[0].innerHTML = 'Something wrong';
+
     }
     return checked;
 }

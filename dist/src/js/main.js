@@ -14,11 +14,66 @@ function clearInput(clearArray, index) {
     }
     resultArea[index].innerHTML = 'Result';
 }
+formArea[4].innerHTML = '<label for="power">Type variable and degree</label><input type="text" id="val"><input type="text" id="pow"><button onclick="powerGeneral()">Comfirm</button> <button onclick="clearInput(outputAClearArray,4)">Clear</button>'
+
+// calculation
+
+function power(val, pow) {
+    if (pow == 0) {
+
+        return 1;
+    } else if (pow == 1) {
+        return val;
+    } else if (pow > 0) {
+        if (Number.isInteger(pow)) {
+            console.log('val is: ' + val + ' pow is: ' + (pow - 1));
+            return power(val, pow - 1) * val;
+        }
+    } else {
+        console.log('val is: ' + val + ' pow is: ' + -(Math.abs(pow) - 1));
+        return power(val, -(Math.abs(pow) - 1)) / val;
+    }
+}
+
+function readPower() {
+    var val = document.getElementById('val').value,
+        pow = document.getElementById('pow').value;
+    return [val, pow];
+}
+
+function checkPower(powerArray) {
+    var checkedPower;
+    for (var checkingPower of powerArray) {
+        if (!isNaN(checkingPower)) {
+            checkedPower = true;
+        } else {
+            resultArea[4].innerHTML = 'variable or degree is not a number';
+            return false;
+        }
+    }
+    console.log(powerArray);
+    console.log(Number.isInteger(+powerArray[1]))
+    if (!Number.isInteger(+powerArray[1])) {
+        resultArea[4].innerHTML = 'pow is fractional number';
+        return false;
+    }
+    return checkedPower;
+
+}
+
+// General function
+
+function powerGeneral() {
+    var powerArray = readPower();
+    if (checkPower(powerArray)) {
+        resultArea[4].innerHTML = 'Result is: ' + power(+powerArray[0], +powerArray[1]);
+    }
+}
 // form for third question
-formArea[0].innerHTML = ' <div><label for="first-variable">Type first variable </label>\n' +
-    ' <div><input type="text" name="first-variable" id="first-variable"> </div></div>' +
-    '<div><label for="second-variable">Type second variable </label>\n' +
-    '<div><input type="text" name="second-variable" id="second-variable"> </div><div><button onclick="output()"> Comfirm</button><button onclick="clearInput(comparisonClearArray)">Clear</button></div></div>';
+formArea[0].innerHTML = ' <label for="first-variable">Type first variable </label>\n' +
+    ' <input type="text" name="first-variable" id="first-variable"> ' +
+    '<label for="second-variable">Type second variable </label>\n' +
+    '<input type="text" name="second-variable" id="second-variable"> <button onclick="output()"> Comfirm</button><button onclick="clearInput(comparisonClearArray)">Clear</button>';
 // scripts for third question
 for (var result of resultArea) {
     result.innerHTML = 'Result';
@@ -27,7 +82,7 @@ for (var result of resultArea) {
 function readVariables() {
     var a = document.getElementById('first-variable').value,
         b = document.getElementById('second-variable').value,
-        variablesArray = [a, b]
+        variablesArray = [a, b];
     return variablesArray;
 }
 
@@ -43,15 +98,16 @@ function validationVariables(validationArray) {
 }
 
 function checkVariables(checkingArray) {
-    var checked = true;
 
+    var checked;
     for (var checkingVar of checkingArray) {
-        if (!Number.isInteger(checkingVar)) {
-            checked = false;
+        if (Number.isInteger(+checkingVar)) {
+            checked = true;
+        } else {
+            resultArea[0].innerHTML = 'Something wrong';
+            return false;
         }
-    }
-    if (!checked) {
-        resultArea[0].innerHTML = 'Something wrong';
+
     }
     return checked;
 }
@@ -65,7 +121,7 @@ function output() {
 }
 
 
-formArea[2].innerHTML = '<div><label for="maths-1">Type two variables and operations</label></div><div><input type="text" id="maths-1"><input type="text" id="maths-2"></div><div><input type="text" id="operator" placeholder="+ - * /"></div> <div><button onclick="mathCalc()">Comfirm</button> <button onclick="clearInput(mathsClearArray,2)">Clear</button></div>'
+formArea[2].innerHTML = '<label for="maths-1">Type two variables and operations</label><input type="text" id="maths-1"><input type="text" id="maths-2"><input type="text" id="operator" placeholder="+ - * /"> <button onclick="mathCalc()">Comfirm</button> <button onclick="clearInput(mathsClearArray,2)">Clear</button>'
 
 function mathsRead() {
     var a = document.getElementById('maths-1').value,
@@ -127,8 +183,22 @@ function mathCalc() {
         resultArea[2].innerHTML = 'Result is: ' + mathOperation(calcArray[0], calcArray[1], calcArray[2])
     }
 }
+function nullZero() {
+    var nullComparison = document.createElement('div');
+    nullComparison.innerHTML = ' <div> (null == 0) ' + (null == 0);
+    nullComparison.innerHTML += '</div> <div> (null === 0) ' + (null === 0);
+    nullComparison.innerHTML += '</div> <div>  (null != 0) ' + (null != 0);
+    nullComparison.innerHTML += '</div> <div>  (null !== 0) ' + (null !== 0);
+    nullComparison.innerHTML += '</div> <div>  (null > 0) ' + (null > 0);
+    nullComparison.innerHTML += '</div> <div>  (null < 0) ' + (null < 0);
+    return nullComparison.innerHTML;
+
+
+}
+
+formArea[3].innerHTML = nullZero();
 // form for fourth question
-formArea[1].innerHTML = '<div><label for="a-place">Type a</label></div> <div><input type="text" name="a-place" id="a-place"></div> <div><button onclick="outputA()">Comfirm</button> <button onclick="clearInput(outputAClearArray,1)">Clear</button></div>  ';
+formArea[1].innerHTML = '<label for="a-place">Type a</label> <input type="text" name="a-place" id="a-place"> <button onclick="outputA()">Comfirm</button> <button onclick="clearInput(outputAClearArray,1)">Clear</button>  ';
 
 
 // functions for fourth question
@@ -148,8 +218,7 @@ function isARight(a) {
 }
 
 function outputA() {
-    var a = readA(),
-        resultOutput = '';
+    var a = readA();
     if (isARight(a)) {
         resultArea[1].innerHTML = 'Result is: ';
         for (a; a < 16; a++) {
