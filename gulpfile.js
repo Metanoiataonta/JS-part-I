@@ -25,7 +25,7 @@ gulp.task('html', function () {
         .pipe(gulp.dest('dist'))
 });
 gulp.task('js', function () {
-    return gulp.src(['src/js/main.js', 'src/js/**/*.js'])
+    return gulp.src(['src/js/main.js', 'src/js/*.js'])
         .pipe(concat('main.js'))
         // .pipe(uglify())
         .pipe(gulp.dest('dist/src/js'))

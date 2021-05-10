@@ -1,8 +1,7 @@
 var formArea = document.querySelectorAll('.form'),
     resultArea = document.querySelectorAll('.result'),
-    comparisonClearArray = ["first-variable", "second-variable"],
-    outputAClearArray = ["a-place"],
-mathsClearArray = ["maths-1", "maths-2", "operator"];
+    primeNumberClearArray = ["topNumber"];
+
 
 // used in clearInput function
 
