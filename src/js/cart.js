@@ -1,4 +1,4 @@
-// formArea[1].innerHTML = ' <p>In cart:</p><ul> <li>Apple 1 piece 20$ </li><li>Orange 2 pieces 22$ </li><li>Banana 4 pieces 19$ </li></ul>';
+formArea[1].innerHTML = ' <p>In cart:</p><ul> <li>Apple 1 piece 20$ </li><li>Orange 2 pieces 22$ </li><li>Banana 4 pieces 19$ </li></ul>';
 
 // Конструктор товаров
 function Item(fruit, quantity, price) {
