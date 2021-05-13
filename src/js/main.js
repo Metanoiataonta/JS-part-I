@@ -5,6 +5,11 @@ var formArea = document.querySelectorAll('.form'),
 
 // used in clearInput function
 
+function resultPlaceholder() {
+    for (var result of resultArea) {
+        result.innerHTML = 'Result';
+    }
+}
 
 function clearInput(clearArray, index) {
     for (var clear of clearArray) {
@@ -13,3 +18,5 @@ function clearInput(clearArray, index) {
     }
     resultArea[index].innerHTML = 'Result';
 }
+
+resultPlaceholder();

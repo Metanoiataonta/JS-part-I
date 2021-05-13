@@ -3,7 +3,7 @@
 .main {
   padding: 40px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, min-content);
   grid-auto-flow: column;
   grid-column-gap: 40px;

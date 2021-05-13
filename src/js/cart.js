@@ -10,7 +10,7 @@ function Item(fruit, quantity, price) {
 function countBasketPrice(cart) {
     var totalPrice = 0;
     for (var item of cart) {
-        totalPrice += item.quantity * item.price
+        totalPrice += item.quantity * item.price;
     }
     return totalPrice;
 }
