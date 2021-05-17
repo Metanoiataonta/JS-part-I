@@ -161,3 +161,17 @@ button {
   border: 1px solid #000;
   border-radius: 10px;
   padding: 2px 10px; }
+
+.light {
+  background-color: #d0a074; }
+
+.dark {
+  background-color: #55452f; }
+
+.square {
+  width: 40px;
+  height: 40px; }
+
+.designation {
+  font-size: 30px;
+  text-align: center; }
