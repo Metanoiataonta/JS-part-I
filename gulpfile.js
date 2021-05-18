@@ -47,7 +47,7 @@ gulp.task('sprite', async function () {
 });
 assetsDir = "./";
 gulp.task('svgSpriteBuild', function () {
-    return gulp.src(assetsDir + 'img/*.svg')
+    return gulp.src(assetsDir + 'src/img/sprite/*.svg')
         // minify svg
         .pipe(svgmin({
             js2svg: {
@@ -73,8 +73,8 @@ gulp.task('svgSpriteBuild', function () {
                     sprite: "../sprite.svg",
                     render: {
                         scss: {
-                            dest: '../sass/_sprite.scss',
-                            template: assetsDir + "js/template.scss"
+                            dest: '../../src/css/_sprite.scss',
+                            // template: assetsDir + "js/template.scss"
                         }
                     }
                 }

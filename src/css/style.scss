@@ -1,4 +1,4 @@
-@import "reset";
+@import "reset", "sprite";
 
 .main {
   padding: 40px;
@@ -48,4 +48,17 @@ button {
 .designation {
   font-size: 30px;
   text-align: center;
+}
+
+.svg {
+  display: none;
+}
+
+.white {
+  fill: #fff;
+}
+.piece{
+  margin: 8px;
+  width: 24px;
+  height: 24px;
 }

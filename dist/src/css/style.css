@@ -135,6 +135,30 @@ html {
 a {
   text-decoration: none; }
 
+.svg-chess-bishop-dims {
+  width: 24px;
+  height: 24px; }
+
+.svg-chess-king-dims {
+  width: 24px;
+  height: 24px; }
+
+.svg-chess-knight-dims {
+  width: 24px;
+  height: 24px; }
+
+.svg-chess-pawn-dims {
+  width: 24px;
+  height: 24px; }
+
+.svg-chess-queen-dims {
+  width: 24px;
+  height: 24px; }
+
+.svg-chess-rook-dims {
+  width: 24px;
+  height: 24px; }
+
 .main {
   padding: 40px;
   display: grid;
@@ -175,3 +199,14 @@ button {
 .designation {
   font-size: 30px;
   text-align: center; }
+
+.svg {
+  display: none; }
+
+.white {
+  fill: #fff; }
+
+.piece {
+  margin: 8px;
+  width: 24px;
+  height: 24px; }
