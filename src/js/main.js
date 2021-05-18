@@ -19,4 +19,4 @@ function clearInput(clearArray, index) {
     resultArea[index].innerHTML = 'Result';
 }
 
-resultPlaceholder();
+// resultPlaceholder();

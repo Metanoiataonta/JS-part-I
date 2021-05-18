@@ -103,13 +103,13 @@ placePieces = function (color) {
             } else {
                 pawnsPositionY = 7;
             }
-            console.log(piece, pawnsPosition);
+            // console.log(piece, pawnsPosition);
             for (var positionX of pawnsPosition) {
                 board.squares[pawnsPositionY][positionX].element.innerHTML = `<svg class="piece ${color}"><use href="#${piece.id}"></svg>`;
             }
         } else if (pieceKey !== 'board' && pieceKey !== 'init') {
             piece = pieces[pieceKey];
-            console.log(piece);
+            // console.log(piece);
             for (positionX of piece.position) {
                 board.squares[positionY][positionX].element.innerHTML = `<svg class="piece ${color}"><use href="#${piece.id}"></svg>`;
             }
