@@ -12,26 +12,26 @@ function Item(fruit, quantity, price) {
 var apple = new Item('Apple', 10, 20),
     orange = new Item('Orange', 22, 22),
     banana = new Item('Banana', 14, 19),
-    product = [apple, orange, banana],
-    cart = {
-
-        items: [],
-        fill: function (product) {
-
-            for (var item of product) {
-                this.items.push({
-                        fruit: item.fruit,
-                        amount: Math.floor(Math.random() * (item.quantity) + 1),
-                        price: item.price
-                    }
-                )
-            }
-        }
-
-    }
+    product = [apple, orange, banana];
+// cart = {
+//
+//     items: [],
+//     fill: function (product) {
+//
+//         for (var item of product) {
+//             this.items.push({
+//                     fruit: item.fruit,
+//                     amount: Math.floor(Math.random() * (item.quantity) + 1),
+//                     price: item.price
+//                 }
+//             )
+//         }
+//     }
+//
+// }
 
 // Заполнение корзины
-cart.fill(product);
+// cart.fill(product);
 
 // Вывод каталога:
 function displayProduct() {
@@ -40,7 +40,7 @@ function displayProduct() {
         i = 0;
     formArea[1].style.display = 'grid';
 
-    formArea[1].style.gridTemplateColumns = `repeat(${itemKeys.length}, min-content)`;
+    formArea[1].style.gridTemplateColumns = `repeat(${itemKeys.length + 1}, min-content)`;
 
     formArea[1].style.height = 'min-content';
 
@@ -54,6 +54,11 @@ function displayProduct() {
         formArea[1].appendChild(columns[i].element);
         i++;
     }
+    columns.push({column: column, element: document.createElement('div')});
+
+
+    formArea[1].appendChild(columns[i].element);
+    i++;
 
     for (var fruit of product) {
         fruit.element = [];
@@ -69,11 +74,13 @@ function displayProduct() {
                 formArea[1].appendChild(fruit.element[i]);
                 i++;
             }
-            console.log(fruit[part])
-        }
 
-        console.log(fruit);
+        }
+        fruit.element.push(document.createElement('button'));
+        fruit.element[i].innerHTML = 'Buy';
+        formArea[1].appendChild(fruit.element[i]);
     }
+    i++;
     fruit.element.push(document.createElement('div'));
     fruit.element[i].innerHTML = 'Here is product';
     fruit.element[i].style.fontSize = '30px';
@@ -84,19 +91,19 @@ function displayProduct() {
 
 // Вывод корзины
 
-function displayCart() {
-    var totalPrice = 0,
-        totalAmount = 0;
-    if (cart.items === []) {
-        resultArea[1].innerHTML = 'Cart is empty';
-    } else {
-        for (var item of cart.items) {
-            totalPrice += item.amount * item.price;
-            totalAmount += item.amount;
-        }
-        resultArea[1].innerHTML = `In cart ${totalAmount} items for the amount of ${totalPrice} rubles`;
-    }
-}
+// function displayCart() {
+//     var totalPrice = 0,
+//         totalAmount = 0;
+//     if (cart.items === []) {
+//         resultArea[1].innerHTML = 'Cart is empty';
+//     } else {
+//         for (var item of cart.items) {
+//             totalPrice += item.amount * item.price;
+//             totalAmount += item.amount;
+//         }
+//         resultArea[1].innerHTML = `In cart ${totalAmount} items for the amount of ${totalPrice} rubles`;
+//     }
+// }
 
 displayProduct();
-displayCart();
+// displayCart();
