@@ -20,6 +20,7 @@ function clearInput(clearArray, index) {
 }
 
 // resultPlaceholder();
+
 // Конструктор товаров
 function Item(fruit, quantity, price) {
     this.fruit = fruit;
@@ -31,58 +32,37 @@ function Item(fruit, quantity, price) {
 // подсчет стоимости корзины
 
 
-var apple = new Item('Apple', 10, 20),
-    orange = new Item('Orange', 22, 22),
-    banana = new Item('Banana', 14, 19),
-    product = [apple, orange, banana];
-// cart = {
-//
-//     items: [],
-//     fill: function (product) {
-//
-//         for (var item of product) {
-//             this.items.push({
-//                     fruit: item.fruit,
-//                     amount: Math.floor(Math.random() * (item.quantity) + 1),
-//                     price: item.price
-//                 }
-//             )
-//         }
-//     }
-//
-// }
-
-// Заполнение корзины
-// cart.fill(product);
+var apple = new Item('Apple', 10, '20 &pound'
+    ),
+    orange = new Item('Orange', 22, '22 &pound'),
+    banana = new Item('Banana', 14, '19 &pound'),
+    product = {items: [apple, orange, banana]};
+cart = [];
 
 // Вывод каталога:
 function displayProduct() {
-    var itemKeys = Object.keys(product[0]),
+    var itemKeys = Object.keys(product.items[0]),
         columns = [],
         i = 0;
     formArea[1].style.display = 'grid';
 
-    formArea[1].style.gridTemplateColumns = `repeat(${itemKeys.length + 1}, min-content)`;
+    formArea[1].style.gridTemplateColumns = `repeat(${itemKeys.length + 2}, 1fr)`;
 
-    formArea[1].style.height = 'min-content';
 
     for (var column of itemKeys) {
         columns.push({column: column, element: document.createElement('div')});
 
         columns[i].element.innerHTML = column;
+        columns[i].element.classList.add('column');
         columns[i].element.style.fontSize = '25px';
         columns[i].element.style.fontWeight = '700';
         columns[i].element.style.marginRight = '20px';
         formArea[1].appendChild(columns[i].element);
         i++;
     }
-    columns.push({column: column, element: document.createElement('div')});
+    document.querySelectorAll('.column:last-of-type')[0].style.gridColumn = `${itemKeys.length} / ${itemKeys.length + 3}`;
 
-
-    formArea[1].appendChild(columns[i].element);
-    i++;
-
-    for (var fruit of product) {
+    for (var fruit of product.items) {
         fruit.element = [];
 
         i = 0;
@@ -98,34 +78,135 @@ function displayProduct() {
             }
 
         }
-        fruit.element.push(document.createElement('button'));
-        fruit.element[i].innerHTML = 'Buy';
+
+        fruit.element.push(document.createElement('input'));
+        fruit.element[i].setAttribute('type', 'number');
+        fruit.element[i].style.height = '100%';
+        fruit.element[i].setAttribute('placeholder', 'set amount of fruit');
         formArea[1].appendChild(fruit.element[i]);
+        i++;
+        fruit.element.push(document.createElement('button'));
+        fruit.element[i].addEventListener('click', product.buttonHandler.bind(fruit));
+        fruit.element[i].innerHTML = 'Buy';
+
+        formArea[1].appendChild(fruit.element[i]);
+
     }
-    i++;
-    fruit.element.push(document.createElement('div'));
-    fruit.element[i].innerHTML = 'Here is product';
-    fruit.element[i].style.fontSize = '30px';
-    fruit.element[i].style.gridColumn = '1 / 4'
-    formArea[1].appendChild(fruit.element[i]);
+
+
+}
+
+function valueCheck(value, cartItem) {
+
+    if (Number.isInteger(+value) && value > 0 && value <= cartItem.quantity) {
+        console.log(value, cartItem.quantity);
+        return true;
+    } else return false;
+}
+
+product.buttonHandler = function () {
+    var value = this.element[this.element.length - 2].value,
+        inCart = [false, 0];
+
+
+    cart.forEach((item) => {
+        if (item.fruit === this.fruit) return inCart = {itIs: true, index: cart.indexOf(item)}
+    })
+
+    if (inCart.itIs) {
+        cartItem = cart[inCart.index];
+        var newAmount = cartItem.amount + Number(value);
+
+        if (valueCheck(newAmount, cartItem)) {
+
+            cartItem.amount = newAmount;
+            cartItem.itemsPrice = cartItem.amount * parseInt(cartItem.price) + '&pound';
+        } else {
+            console.log('No so much items in store');
+            this.element[4].classList.add('wrong-value');
+            setTimeout(() => this.element[4].classList.remove('wrong-value'), 1000);
+        }
+
+        displayCart();
+    } else {
+        var cartItem = {};
+        cart.push(Object.assign(cartItem, this));
+
+        if (valueCheck(value, cartItem)) {
+            cartItem.amount = +value;
+            cartItem.itemsPrice = cartItem.amount * parseInt(cartItem.price) + '&pound';
+            cartItem.element = {};
+
+
+            displayCart();
+        } else {
+            console.log('wrong value', this);
+            this.element[4].classList.add('wrong-value');
+            setTimeout(() => this.element[4].classList.remove('wrong-value'), 1000);
+            cart.pop();
+        }
+    }
 
 }
 
 // Вывод корзины
 
-// function displayCart() {
-//     var totalPrice = 0,
-//         totalAmount = 0;
-//     if (cart.items === []) {
-//         resultArea[1].innerHTML = 'Cart is empty';
-//     } else {
-//         for (var item of cart.items) {
-//             totalPrice += item.amount * item.price;
-//             totalAmount += item.amount;
-//         }
-//         resultArea[1].innerHTML = `In cart ${totalAmount} items for the amount of ${totalPrice} rubles`;
-//     }
-// }
+function displayCart() {
+    if (cart.length === 0) {
+        resultArea[1].innerHTML = "Cart is empty";
+    } else {
+        resultArea[1].innerHTML = '';
+        var itemKeys = Object.keys(cart[0]),
+            columns = [],
+            i = 0;
+        resultArea[1].style.display = 'grid';
+
+        resultArea[1].style.gridTemplateColumns = `repeat(${itemKeys.length - 2}, 1fr)`;
+
+
+        for (var column of itemKeys) {
+            if (column !== 'quantity' && column !== 'element') {
+                columns.push({column: column, element: document.createElement('div')});
+
+                columns[i].element.innerHTML = column;
+                columns[i].element.classList.add('column');
+                columns[i].element.style.fontSize = '25px';
+                columns[i].element.style.fontWeight = '700';
+                columns[i].element.style.marginRight = '20px';
+                resultArea[1].appendChild(columns[i].element);
+                i++;
+            }
+        }
+
+        for (var fruit of cart) {
+
+            fruit.element = [];
+
+            i = 0;
+            for (var part of Object.keys(fruit)) {
+                if (part !== 'quantity' && part !== 'element') {
+                    fruit.element.push(document.createElement('div'));
+                    fruit.element[i].innerHTML = fruit[part];
+                    fruit.element[i].style.paddingBottom = '10px';
+                    fruit.element[i].style.paddingTop = '10px';
+                    fruit.element[i].style.border = '1px solid #000';
+                    resultArea[1].appendChild(fruit.element[i]);
+                    i++;
+                }
+
+            }
+        }
+        var totalPrice = 0,
+            totalAmount = 0;
+        cart.forEach((item) => {
+            totalPrice += parseInt(item.itemsPrice);
+            totalAmount += item.amount;
+        })
+        resultArea[1].innerHTML += `<div> In cart ${totalAmount} items for the amount of ${totalPrice} &pound </div>`;
+        resultArea[1].children[resultArea[1].children.length - 1].style.gridColumn = `1 / ${itemKeys.length - 1}`;
+    }
+
+}
 
 displayProduct();
-// displayCart();
+displayCart();
